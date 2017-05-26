@@ -1,5 +1,6 @@
 package com.example.p3.redevent;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
@@ -23,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
         final EditText tbx_login = (EditText) findViewById(R.id.tbx_user);
         EditText tbx_senha = (EditText) findViewById(R.id.tbx_pass);
         Button btn_in = (Button) findViewById(R.id.btn_login);
+        Button btn_up = (Button) findViewById(R.id.btn_cad);
         btn_in.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -39,6 +41,12 @@ public class MainActivity extends AppCompatActivity {
                         DatabaseOpenHelper.columns, null, new String[] {}, null, null,
                         null);*/
 
+            }
+        });
+        btn_up.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this,Cadastro.class));
             }
         });
     }
