@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "703358692617",
+    "firebase_url": "https://redevent-6cfe4.firebaseio.com",
+    "project_id": "redevent-6cfe4",
+    "storage_bucket": "redevent-6cfe4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:703358692617:android:f5e13927e69df236",
+        "android_client_info": {
+          "package_name": "com.example.p3.redevent"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "703358692617-p567rutrphhte5imqfdh2e0mv29d4nte.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.p3.redevent",
+            "certificate_hash": "afbbf38007056846b23dec42237aeccaa83d615e"
+          }
+        },
+        {
+          "client_id": "703358692617-th1r0hil6itdgq5otg492qbbvolmt4eq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAirb8PYIUHn9Quob9-1spKmhgAi_1als8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "703358692617-th1r0hil6itdgq5otg492qbbvolmt4eq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

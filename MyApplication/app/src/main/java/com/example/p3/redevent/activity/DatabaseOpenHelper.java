@@ -1,4 +1,4 @@
-package com.example.p3.redevent;
+package com.example.p3.redevent.activity;
 
 /**
  * Created by Nati on 26/05/2017.
@@ -11,7 +11,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DatabaseOpenHelper extends SQLiteOpenHelper {
 
-    final static String TABLE_NAME = "bdRss";
+    final static String TABLE_NAME = "users";
     final static String LOGIN = "login";
     final static String PASS = "pass";
     final static String TELL = "fone";
