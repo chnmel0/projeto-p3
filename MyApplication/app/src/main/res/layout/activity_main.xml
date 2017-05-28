@@ -42,6 +42,7 @@
 
         <Button
             android:id="@+id/btn_cad"
+            android:onClick="novo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Cadastro"
