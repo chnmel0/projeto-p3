@@ -2,23 +2,35 @@ package com.example.p3.redevent;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutCompat;
 
-public class Splash extends Activity implements Runnable {
+public class Splash extends Activity {
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash);
+        setContentView(R.layout.activity_splash2);
 
-        Handler handler = new Handler();
-        handler.postDelayed(this, 2000);
-    }
-
-    public void run(){
-        startActivity(new Intent(this, MainActivity.class));
-        finish();
-    }
-}
+        Thread timer = new Thread(){
+            @Override
+            public void run() {
+                try {
+                    sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } finally {
+                    Intent it = new Intent(Splash.this, MainActivity.class);
+                    startActivity(it);
+                }
+            }
+        };
+        timer.start();
+        }
+        @Override
+    protected void onPause(){
+            super.onPause();
+            finish();
+        }
+    };
