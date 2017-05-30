@@ -1,10 +1,10 @@
-package com.example.p3.redevent;
+package com.example.p3.redevent.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutCompat;
+
+import com.example.p3.redevent.R;
 
 public class Splash extends Activity {
 

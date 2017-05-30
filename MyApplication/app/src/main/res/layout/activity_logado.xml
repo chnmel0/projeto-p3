@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/imagem"
-    tools:context="com.example.p3.redevent.activity.Splash">
+    tools:context="com.example.p3.redevent.activity.Logado">
 
 </android.support.constraint.ConstraintLayout>

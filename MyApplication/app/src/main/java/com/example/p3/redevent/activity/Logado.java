@@ -1,13 +1,15 @@
-package com.example.p3.redevent;
+package com.example.p3.redevent.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class Cadastro extends AppCompatActivity {
+import com.example.p3.redevent.R;
+
+public class Logado extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cadastro);
+        setContentView(R.layout.activity_logado);
     }
 }
