@@ -52,21 +52,25 @@ public class Cadastro extends AppCompatActivity {
         btnCadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (edtCadSenha.getText().toString().equals(getEdtCadSenhaConfirm.getText().toString())) {
-                    usuarios = new Usuarios();
-                    usuarios.setNome(edtCadNome.getText().toString());
-                    usuarios.setEmail(edtCadEmail.getText().toString());
-                    usuarios.setSenha(edtCadSenha.getText().toString());
+                if (!edtCadEmail.getText().toString().equals("")&!edtCadNome.getText().toString().equals("")&!edtCadSenha.getText().toString().equals("")&!getEdtCadSenhaConfirm.getText().toString().equals("")){
+                    if (edtCadSenha.getText().toString().equals(getEdtCadSenhaConfirm.getText().toString())) {
+                        usuarios = new Usuarios();
+                        usuarios.setNome(edtCadNome.getText().toString());
+                        usuarios.setEmail(edtCadEmail.getText().toString());
+                        usuarios.setSenha(edtCadSenha.getText().toString());
 
-                    if (edtCadSexoMasc.isChecked()) {
-                        usuarios.setSexo("Masculino");
+                        if (edtCadSexoMasc.isChecked()) {
+                            usuarios.setSexo("Masculino");
+                        } else {
+                            usuarios.setSexo("Feminino");
+                        }
                     } else {
-                        usuarios.setSexo("Feminino");
+                        Toast.makeText(Cadastro.this, "As senhas não correspondem", Toast.LENGTH_LONG).show();
                     }
-                } else {
-                    Toast.makeText(Cadastro.this, "As senhas não correspondem", Toast.LENGTH_LONG).show();
+                    cadastrarUsuario();
+                }else{
+                    Toast.makeText(Cadastro.this,"Todos os campos de cadastro são obrigatórios",Toast.LENGTH_LONG).show();
                 }
-                cadastrarUsuario();
             }
         });
 

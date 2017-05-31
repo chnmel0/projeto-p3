@@ -67,6 +67,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+    @Override
+    protected void onResume(){
+        super.onResume();
+        final EditText tbx_login = (EditText) findViewById(R.id.tbx_user);
+        final EditText tbx_senha = (EditText) findViewById(R.id.tbx_pass);
+
+        tbx_login.setText("");
+        tbx_senha.setText("");
+    }
+
     private void validarLogin(String mail, String senha){
         Toast.makeText(MainActivity.this, mail,Toast.LENGTH_LONG).show();
         Toast.makeText(MainActivity.this, senha,Toast.LENGTH_LONG).show();
