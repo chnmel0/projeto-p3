@@ -1,20 +1,29 @@
 package com.example.p3.redevent.activity;
 
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.p3.redevent.DAO.ConfiguracaoFirebase;
+import com.example.p3.redevent.Helper.Base64Custom;
 import com.example.p3.redevent.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,6 +35,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //mDbHelper = new DatabaseOpenHelper(this);
+/*
+        String hash = getHashKey();
+        Log.d("HASHKEY::: ", hash);
+*/
         final EditText tbx_login = (EditText) findViewById(R.id.tbx_user);
         final EditText tbx_senha = (EditText) findViewById(R.id.tbx_pass);
         Button btn_in = (Button) findViewById(R.id.btn_login);
@@ -92,6 +105,23 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public String getHashKey(){
+        try {
+            PackageInfo info = this.getPackageManager().getPackageInfo(this.getPackageName(), PackageManager.GET_SIGNATURES);
+            for (Signature signature : info.signatures){
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                return Base64.encodeToString(md.digest(), Base64.DEFAULT);
+
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            return "erro";
+        } catch (NoSuchAlgorithmException e) {
+            return "erro2";
+        }
+        return "nada";
     }
     public void abriTelaPrincipal(){
         Intent itTelaPrincipal = new Intent(MainActivity.this, Logado.class);
