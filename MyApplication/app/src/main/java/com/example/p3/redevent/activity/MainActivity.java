@@ -1,6 +1,7 @@
 package com.example.p3.redevent.activity;
 
 import android.content.Intent;
+import android.content.pm.LauncherApps;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
@@ -17,28 +18,49 @@ import android.widget.Toast;
 import com.example.p3.redevent.DAO.ConfiguracaoFirebase;
 import com.example.p3.redevent.Helper.Base64Custom;
 import com.example.p3.redevent.R;
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
 
-    /*private DatabaseOpenHelper mDbHelper;
-    private SimpleCursorAdapter mAdapter;*/
     private FirebaseAuth autenticFire;
+    AccessToken accessToken;
+    private CallbackManager cbm;
+    LoginButton btn_facebookIn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //mDbHelper = new DatabaseOpenHelper(this);
+        FacebookSdk.sdkInitialize(getApplicationContext());
 /*
         String hash = getHashKey();
         Log.d("HASHKEY::: ", hash);
 */
+        btn_facebookIn = (LoginButton) findViewById(R.id.btn_face);
+        cbm = CallbackManager.Factory.create();
+        facebookIn();
+
         final EditText tbx_login = (EditText) findViewById(R.id.tbx_user);
         final EditText tbx_senha = (EditText) findViewById(R.id.tbx_pass);
         Button btn_in = (Button) findViewById(R.id.btn_login);
@@ -51,25 +73,6 @@ public class MainActivity extends AppCompatActivity {
                 }else{
                     Toast.makeText(MainActivity.this,"Preencha os campos de Email e Senha",Toast.LENGTH_LONG).show();
                 }
-                /*validarLogin(tbx_login.getText().toString(), tbx_senha.getText().toString());
-                /*SQLiteDatabase bd = mDbHelper.getWritableDatabase();
-                Cursor c = bd.rawQuery("SELECT * FROM bdRss WHERE login =" + tbx_login.getText().toString(),null);
-                /*Cursor c = bd.query(DatabaseOpenHelper.TABLE_NAME,
-                        DatabaseOpenHelper.columns, ("login ="+tbx_login.getText().toString()), new String[] {}, null, null,
-                        null);
-                if(c!=null){
-                    c.moveToFirst();
-                }
-                if (c.equals(null)){
-                    Toast.makeText(getApplicationContext(),"Este login não existe no banco",Toast.LENGTH_SHORT).show();
-                }
-                else { Toast.makeText(getApplicationContext(),c.getString(c.getPosition()),Toast.LENGTH_SHORT).show();
-
-                }*/
-                //c.moveToFirst();
-                /*Cursor c = mDbHelper.getWritableDatabase().query(DatabaseOpenHelper.TABLE_NAME,
-                        DatabaseOpenHelper.columns, null, new String[] {}, null, null,
-                        null);*/
 
             }
         });
@@ -91,8 +94,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void validarLogin(String mail, String senha){
-        Toast.makeText(MainActivity.this, mail,Toast.LENGTH_LONG).show();
-        Toast.makeText(MainActivity.this, senha,Toast.LENGTH_LONG).show();
         autenticFire = ConfiguracaoFirebase.getFirebaseAutentic();
         autenticFire.signInWithEmailAndPassword(mail,senha).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
@@ -126,5 +127,82 @@ public class MainActivity extends AppCompatActivity {
     public void abriTelaPrincipal(){
         Intent itTelaPrincipal = new Intent(MainActivity.this, Logado.class);
         startActivity(itTelaPrincipal);
+    }
+
+    private void facebookIn(){
+        cbm = CallbackManager.Factory.create();
+        btn_facebookIn.setReadPermissions("email","public_profile","user_friends");
+        btn_facebookIn.registerCallback(cbm, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                Log.d("MainActivity","facebook sucss::"+loginResult);
+                accessToken = loginResult.getAccessToken();
+            }
+
+            @Override
+            public void onCancel() {
+
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+
+            }
+        });
+
+    }
+
+    private void facebookLogin(){
+        if(accessToken != null){
+            accessToken = com.facebook.AccessToken.getCurrentAccessToken();
+            LoginManager.getInstance().logOut();
+        }
+        LoginManager.getInstance().registerCallback(cbm, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                System.out.println("Granted permision:: "+ loginResult.getRecentlyGrantedPermissions());
+                GraphRequest gr = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
+                    @Override
+                    public void onCompleted(JSONObject object, GraphResponse response) {
+                        String userDatil = response.getRawResponse();
+                        try {
+                            JSONObject jsonObject = new JSONObject(userDatil);
+                            System.out.println("JSON "+ jsonObject);
+                            String facebookId = jsonObject.getString("id");
+                            String email = jsonObject.getString("email");
+                            String name = jsonObject.getString("name");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+
+                        }
+                    }
+                });
+                Bundle parameters = new Bundle();
+                parameters.putString("fields","name,email");
+                gr.setParameters(parameters);
+                gr.executeAsync();
+
+            }
+
+            @Override
+            public void onCancel() {
+                System.out.println("Cancel");
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                System.out.println("no net");
+            }
+        });
+        btn_facebookIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LoginManager.getInstance().logInWithReadPermissions(MainActivity.this, Arrays.asList("public_profile, email, user_videos"));
+            }
+        });
+    }
+    protected void onActivityResult (int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode,resultCode,data);
+        cbm.onActivityResult(requestCode,resultCode,data);
     }
 }

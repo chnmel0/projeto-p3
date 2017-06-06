@@ -96,7 +96,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintVertical_bias="1.0" />
 
-    <Button
+    <com.facebook.login.widget.LoginButton
         android:id="@+id/btn_face"
         style="@style/com_facebook_button"
         android:layout_width="208dp"
