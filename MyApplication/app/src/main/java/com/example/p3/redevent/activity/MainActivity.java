@@ -135,6 +135,8 @@ public class MainActivity extends AppCompatActivity {
         btn_facebookIn.registerCallback(cbm, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
+                abriTelaPrincipal();
+                Toast.makeText(MainActivity.this, "Login Efetuado com Sucesso",Toast.LENGTH_LONG).show();
                 Log.d("MainActivity","facebook sucss::"+loginResult);
                 accessToken = loginResult.getAccessToken();
             }
