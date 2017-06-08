@@ -57,9 +57,6 @@ public class MainActivity extends AppCompatActivity {
         String hash = getHashKey();
         Log.d("HASHKEY::: ", hash);
 */
-        btn_facebookIn = (LoginButton) findViewById(R.id.btn_face);
-        cbm = CallbackManager.Factory.create();
-        facebookIn();
 
         final EditText tbx_login = (EditText) findViewById(R.id.tbx_user);
         final EditText tbx_senha = (EditText) findViewById(R.id.tbx_pass);
@@ -82,6 +79,9 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this,Cadastro.class));
             }
         });
+        btn_facebookIn = (LoginButton) findViewById(R.id.btn_face);
+        cbm = CallbackManager.Factory.create();
+        facebookIn();
     }
     @Override
     protected void onResume(){
