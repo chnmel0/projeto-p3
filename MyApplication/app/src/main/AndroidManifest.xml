@@ -39,8 +39,14 @@
             android:theme="@style/AppTheme.NoActionBar" />
         -->
         <activity android:name=".activity.Cadastro" />
-        <activity android:name=".activity.Logado"></activity>
-        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
+        <activity android:name=".activity.Logado" />
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+
+        <activity android:name=".activity.TelaLogado" />
+        <activity android:name=".activity.CadastroEvento"></activity>
     </application>
 
 </manifest>

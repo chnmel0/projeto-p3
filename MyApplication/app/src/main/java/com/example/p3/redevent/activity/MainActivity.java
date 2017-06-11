@@ -125,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
         return "nada";
     }
     public void abriTelaPrincipal(){
-        Intent itTelaPrincipal = new Intent(MainActivity.this, Logado.class);
+        Intent itTelaPrincipal = new Intent(MainActivity.this, TelaLogado.class);
         startActivity(itTelaPrincipal);
     }
 
