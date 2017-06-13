@@ -44,7 +44,7 @@ import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
 
-    private FirebaseAuth autenticFire;
+    public FirebaseAuth autenticFire;
     AccessToken accessToken;
     private CallbackManager cbm;
     LoginButton btn_facebookIn;
