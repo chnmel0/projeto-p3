@@ -22,6 +22,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 public class CadastroEvento extends AppCompatActivity {
 
@@ -47,7 +48,7 @@ public class CadastroEvento extends AppCompatActivity {
         descrição = (EditText) findViewById(R.id.edtDesc);
         //getUserName();
         try {
-            Toast.makeText(CadastroEvento.this, getUser(),Toast.LENGTH_LONG).show();
+            Toast.makeText(CadastroEvento.this, getUserName(),Toast.LENGTH_LONG).show();
         }
         catch (Exception ex){
             Log.d("Erro da desgraca::: ",ex.toString());
@@ -82,29 +83,25 @@ public class CadastroEvento extends AppCompatActivity {
 
     public String getUserName(){
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference ref = database.getReference("redevent-6cfe4.firebaseio.com/usuario");
+        DatabaseReference ref = database.getReference("project/redevent-6cfe4/database/data/usuario");
         final String[] userr = new String[1];
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                User user = dataSnapshot.getValue(User.class);
-                userr[0] = user.nome.toString();
+                Usuarios user = dataSnapshot.getValue(Usuarios.class);
+                Toast.makeText(CadastroEvento.this, dataSnapshot.toString(),Toast.LENGTH_LONG).show();
+                //userr[0] = user.getNome();
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 System.out.println("The read failed: " + databaseError.getCode());
             }
         });
-        //userf[0].getNome();
-        //Toast.makeText(CadastroEvento.this, userf[0].getNome(),Toast.LENGTH_LONG).show();
-        /*autenticFire = ConfiguracaoFirebase.getFirebaseAutentic();
-        FirebaseUser user = autenticFire.getCurrentUser();
-
-        return user.getDisplayName().toString();*/
-        return  userr[0];
+        return  "aaaaaaaaaaaaa";
 
     }
     public String getUser(){
+        autenticFire = ConfiguracaoFirebase.getFirebaseAutentic();
         user = autenticFire.getCurrentUser();
         return user.getDisplayName();
     }
@@ -113,12 +110,18 @@ public class CadastroEvento extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
+    public String getUid() {
+        return FirebaseInstanceId.getInstance().getId();
+    }
 }
 class User {
 
-    public String email;
-    public String nome;
-    public String sexo;
+    private String id;
+    private String email;
+    private String senha;
+    private String nome;
+    private String sexo;
 
     public User(String nome, String email,String sexo) {
         this.nome = nome;
