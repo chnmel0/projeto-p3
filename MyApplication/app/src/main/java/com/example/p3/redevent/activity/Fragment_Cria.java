@@ -1,15 +1,17 @@
 package com.example.p3.redevent.activity;
 
+
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.p3.redevent.CONF.ConfigFirebase;
 import com.example.p3.redevent.DAO.ConfiguracaoFirebase;
 import com.example.p3.redevent.Entidades.Eventos;
 import com.example.p3.redevent.Entidades.Usuarios;
@@ -24,38 +26,37 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 
-public class CadastroEvento extends AppCompatActivity {
-
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class Fragment_Cria extends Fragment {
     private FirebaseAuth autenticFire;
     private FirebaseUser user;
     private EditText titulo;
     private EditText autor;
-    private EditText data;
-    private EditText participantes;
+    private EditText data_Ini;
+    private EditText data_Fim;
     private EditText descrição;
     private Button criar;
     private Eventos eventos;
 
+    public Fragment_Cria() {
+        // Required empty public constructor
+
+    }
+
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cadastro_evento);
-
-        titulo = (EditText) findViewById(R.id.edtTitulo);
-        autor = (EditText) findViewById(R.id.edtNomeAutor);
-        data = (EditText) findViewById(R.id.edtData);
-        participantes = (EditText) findViewById(R.id.edtPart);
-        descrição = (EditText) findViewById(R.id.edtDesc);
-        //getUserName();
-        try {
-            Toast.makeText(CadastroEvento.this, getUserName(),Toast.LENGTH_LONG).show();
-        }
-        catch (Exception ex){
-            Log.d("Erro da desgraca::: ",ex.toString());
-            Toast.makeText(CadastroEvento.this,ex.toString(),Toast.LENGTH_LONG).show();
-        }
-
-        criar = (Button) findViewById(R.id.btnCriar);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+                // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment__cria, container, false);
+        titulo = (EditText) view.findViewById(R.id.edtTitulo);
+        autor = (EditText) view.findViewById(R.id.edtNomeAutor);
+        data_Ini = (EditText) view.findViewById(R.id.edtDataIni);
+        data_Fim = (EditText) view.findViewById(R.id.edtDataFim);
+        descrição = (EditText) view.findViewById(R.id.edtDesc);
+        criar = (Button) view.findViewById(R.id.btnCriar);
         criar.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -64,23 +65,16 @@ public class CadastroEvento extends AppCompatActivity {
                     eventos.setTitulo(titulo.getText().toString());
                     eventos.setAutor(autor.getText().toString());
                     eventos.setAutor(getUserName());
-                    eventos.setData(data.getText().toString());
-                    eventos.setParticipantes(null);
+                    eventos.setData_Inicio(data_Ini.getText().toString());
+                    eventos.setData_Final(data_Fim.getText().toString());
                     eventos.setDescricao(descrição.getText().toString());
                     cadastrarEvento();
                 }
             }
         });
-    }
-    private void cadastrarEvento(){
-        String identificadorEvento = Base64Custom.codificarBase64(eventos.getTitulo());
-        eventos.setId(identificadorEvento);
-        eventos.salvar();
-        Toast.makeText(CadastroEvento.this,"Evento Criado com Sucesso", Toast.LENGTH_LONG).show();
 
-        abrirTelaLogado();
+        return view;
     }
-
     public String getUserName(){
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("project/redevent-6cfe4/database/data/usuario");
@@ -89,7 +83,7 @@ public class CadastroEvento extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Usuarios user = dataSnapshot.getValue(Usuarios.class);
-                Toast.makeText(CadastroEvento.this, dataSnapshot.toString(),Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), dataSnapshot.toString(),Toast.LENGTH_LONG).show();
                 //userr[0] = user.getNome();
             }
             @Override
@@ -105,29 +99,21 @@ public class CadastroEvento extends AppCompatActivity {
         user = autenticFire.getCurrentUser();
         return user.getDisplayName();
     }
-    public void abrirTelaLogado(){
-        Intent intent = new Intent(CadastroEvento.this,TelaLogado.class);
-        startActivity(intent);
-        finish();
+
+    private void cadastrarEvento() {
+        String identificadorEvento = Base64Custom.codificarBase64(eventos.getTitulo());
+        eventos.setId(identificadorEvento);
+        eventos.salvar();
+        Toast.makeText(getContext(), "Evento Criado com Sucesso", Toast.LENGTH_LONG).show();
+        abrirTelaLogado();
     }
+    public void abrirTelaLogado() {
+        Fragment_Logado logado = new Fragment_Logado();
+        getFragmentManager().beginTransaction().replace(R.id.conteudo_fragment,logado).commit();
+    }
+
 
     public String getUid() {
         return FirebaseInstanceId.getInstance().getId();
     }
-}
-class User {
-
-    private String id;
-    private String email;
-    private String senha;
-    private String nome;
-    private String sexo;
-
-    public User(String nome, String email,String sexo) {
-        this.nome = nome;
-        this.email = email;
-        this.sexo = sexo;
-        // ...
-    }
-
 }

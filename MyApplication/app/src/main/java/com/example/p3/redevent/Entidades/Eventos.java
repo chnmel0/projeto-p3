@@ -15,9 +15,10 @@ public class Eventos {
     private String id;
     private String titulo;
     private String descricao;
-    private String data;
+    private String data_Inicio;
+    private String data_Final;
     private String autor;
-    private String participantes;
+
 
     public Eventos() {
     }
@@ -33,9 +34,9 @@ public class Eventos {
         hashMapEventos.put("id",getId());
         hashMapEventos.put("titulo",getTitulo());
         hashMapEventos.put("descricao", getDescricao());
-        hashMapEventos.put("data", getData());
+        hashMapEventos.put("data_Inicio", getData_Inicio());
+        hashMapEventos.put("data_Final", getData_Final());
         hashMapEventos.put("autor", getAutor());
-        hashMapEventos.put("participantes", getParticipantes());
 
         return hashMapEventos;
     }
@@ -66,12 +67,19 @@ public class Eventos {
         this.descricao = descricao;
     }
 
-    public String getData() {
-        return data;
+    public String getData_Inicio() {
+        return data_Inicio;
     }
 
-    public void setData(String data) {
-        this.data = data;
+    public void setData_Inicio(String data) {
+        this.data_Inicio = data;
+    }
+
+    public String getData_Final() {
+        return data_Final;}
+
+    public void setData_Final(String data_Final) {
+        this.data_Final = data_Final;
     }
 
     public String getAutor() {
@@ -82,11 +90,5 @@ public class Eventos {
         this.autor = autor;
     }
 
-    public String getParticipantes() {
-        return participantes;
-    }
 
-    public void setParticipantes(String participantes) {
-        this.participantes = participantes;
-    }
 }

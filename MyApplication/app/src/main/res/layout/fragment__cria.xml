@@ -1,11 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.p3.redevent.activity.Logado">
+    tools:context="com.example.p3.redevent.activity.Fragment_Cria">
 
+    <!-- TODO: Update blank fragment layout -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -29,17 +28,17 @@
                 android:hint="Nome do Autor"/>
 
             <EditText
-                android:id="@+id/edtData"
+                android:id="@+id/edtDataIni"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Data do Evento"
+                android:hint="Data Inicial"
                 android:inputType="date" />
             <EditText
-                android:id="@+id/edtPart"
-                android:inputType="textMultiLine"
+                android:id="@+id/edtDataFim"
+                android:inputType="date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Participantes"/>
+                android:hint="Data Final"/>
 
             <EditText
                 android:id="@+id/edtDesc"
@@ -57,4 +56,5 @@
         </LinearLayout>
     </ScrollView>
 
-</LinearLayout>
+
+</FrameLayout>

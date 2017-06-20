@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_inicio"
+            android:icon="@drawable/home"
+            android:title="Início" />
+        <item
+            android:id="@+id/nav_meus_eventos"
+            android:icon="@android:drawable/ic_menu_my_calendar"
+            android:title="Meus Eventos" />
+        <item
+            android:id="@+id/nav_all_eventos"
+            android:icon="@android:drawable/ic_menu_month"
+            android:title="Todos Eventos" />
+        <item
+            android:id="@+id/nav_sair"
+            android:icon="@drawable/common_full_open_on_phone"
+            android:title="Logout" />
+    </group>
+
+</menu>
