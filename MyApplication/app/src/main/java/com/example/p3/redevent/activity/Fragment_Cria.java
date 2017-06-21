@@ -45,11 +45,12 @@ public class Fragment_Cria extends Fragment {
 
     }
 
-
+    private FloatingActionButton fab;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
                 // Inflate the layout for this fragment
+
         View view = inflater.inflate(R.layout.fragment__cria, container, false);
         titulo = (EditText) view.findViewById(R.id.edtTitulo);
         autor = (EditText) view.findViewById(R.id.edtNomeAutor);

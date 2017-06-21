@@ -19,12 +19,19 @@ public class Eventos {
     private String data_Final;
     private String autor;
 
-
-    public Eventos() {
+    public Eventos(){
+    }
+    public Eventos(String id, String titulo, String descricao, String data_Inicio, String data_Final, String autor) {
+        /*this.id = id;
+        this.titulo = titulo;
+        this.descricao = descricao;
+        this.data_Inicio = data_Inicio;
+        this.data_Final = data_Final;
+        this.autor = autor;*/
     }
     public void salvar(){
         DatabaseReference referenciaFirebase = ConfiguracaoFirebase.getFirebase();
-        referenciaFirebase.child("evento").child(String.valueOf(getId())).setValue(this);
+        referenciaFirebase.child("eventos").child(String.valueOf(getId())).setValue(this);
     }
 
     @Exclude
