@@ -37,6 +37,10 @@ public class Fragment_Logado extends Fragment {
     public Fragment_Logado() {
         // Required empty public constructor
     }
+    public Fragment_Logado(ArrayList<Eventos_Exibi> eventos) {
+        // Required empty public constructor
+        this.eventos = eventos;
+    }
 
 
     @Override
@@ -48,6 +52,7 @@ public class Fragment_Logado extends Fragment {
         lista = (ListView) view.findViewById(R.id.list);
 
         //preenche list
+
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReferenceFromUrl("https://redevent-6cfe4.firebaseio.com/eventos");
         ref.addValueEventListener(new ValueEventListener() {
@@ -71,8 +76,11 @@ public class Fragment_Logado extends Fragment {
             }
 
         });
-
-
+        if (eventos == null){
+            eventos = insere();
+        }
+        adapter = new Evento_Adapter(getActivity(),eventos);
+        lista.setAdapter(adapter);
         //eventos = insere();
         return view;
 
