@@ -63,6 +63,7 @@ public class Fragment_Logado extends Fragment {
                     Eventos_Exibi e = new Eventos_Exibi(ev.getTitulo(),ev.getData_Inicio());
                     eventos.add(e);
                 }
+
                 adapter = new Evento_Adapter(getActivity(),eventos);
                 lista.setAdapter(adapter);
 
@@ -78,6 +79,7 @@ public class Fragment_Logado extends Fragment {
         }
         adapter = new Evento_Adapter(getActivity(),eventos);
         lista.setAdapter(adapter);
+        adapter.clear();
         //eventos = insere();
         return view;
 
