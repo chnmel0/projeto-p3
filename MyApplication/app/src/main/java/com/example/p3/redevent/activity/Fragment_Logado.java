@@ -62,9 +62,6 @@ public class Fragment_Logado extends Fragment {
                     Eventos ev = d.getValue(Eventos.class);
                     Eventos_Exibi e = new Eventos_Exibi(ev.getTitulo(),ev.getData_Inicio());
                     eventos.add(e);
-                    Log.d("Aqui2::",d.getChildren().toString());
-                    Log.d("Aqui1::",d.toString());
-                    Log.d("Aqui3::",ev.getTitulo());
                 }
                 adapter = new Evento_Adapter(getActivity(),eventos);
                 lista.setAdapter(adapter);
@@ -89,9 +86,7 @@ public class Fragment_Logado extends Fragment {
 
     private ArrayList<Eventos_Exibi> insere(){
         ArrayList<Eventos_Exibi> eventos = new ArrayList<Eventos_Exibi>();
-        Eventos_Exibi e = new Eventos_Exibi("Teste","teste");
-        eventos.add(e);
-        e = new Eventos_Exibi("Teste2","Teste2");
+        Eventos_Exibi e = new Eventos_Exibi(" "," ");
         eventos.add(e);
         return eventos;
     }
