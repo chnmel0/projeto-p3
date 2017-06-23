@@ -15,11 +15,11 @@ import java.util.ArrayList;
  * Created by Augusto on 20/06/2017.
  */
 
-public class Evento_Adapter extends ArrayAdapter<Eventos_Exibi> {
+public class Evento_Adapter extends ArrayAdapter<Eventos> {
     private final Context context;
-    private final ArrayList<Eventos_Exibi> elementos;
+    private final ArrayList<Eventos> elementos;
 
-    public Evento_Adapter(Context context, ArrayList<Eventos_Exibi> elementos) {
+    public Evento_Adapter(Context context, ArrayList<Eventos> elementos) {
         super(context, R.layout.evento, elementos);
         this.context = context;
         this.elementos = elementos;
@@ -35,8 +35,8 @@ public class Evento_Adapter extends ArrayAdapter<Eventos_Exibi> {
         TextView titleEvento = (TextView) rowView.findViewById(R.id.title);
         TextView dataEvento = (TextView) rowView.findViewById(R.id.data);
 
-        titleEvento.setText(elementos.get(position).getTitle());
-        dataEvento.setText(elementos.get(position).getData());
+        titleEvento.setText(elementos.get(position).getTitulo());
+        dataEvento.setText(elementos.get(position).getData_Inicio());
 
         return rowView;
 

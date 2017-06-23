@@ -1,12 +1,14 @@
 package com.example.p3.redevent.activity;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -33,11 +35,11 @@ public class Fragment_Logado extends Fragment {
     ListView lista;
     ArrayAdapter adapter;
     View view;
-    ArrayList<Eventos_Exibi> eventos;
+    ArrayList<Eventos> eventos;
     public Fragment_Logado() {
         // Required empty public constructor
     }
-    public Fragment_Logado(ArrayList<Eventos_Exibi> eventos) {
+    public Fragment_Logado(ArrayList<Eventos> eventos) {
         // Required empty public constructor
         this.eventos = eventos;
     }
@@ -51,6 +53,24 @@ public class Fragment_Logado extends Fragment {
         view = inflater.inflate(R.layout.fragment_fragment__logado, container, false);
         lista = (ListView) view.findViewById(R.id.list);
 
+        lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ListView listView = (ListView) parent;
+                ArrayAdapter<Eventos> arrayAdapter = (ArrayAdapter<Eventos>)listView.getAdapter();
+                Eventos ev = arrayAdapter.getItem(position);
+                Intent itent = new Intent(getContext(), EventOpen.class);
+                Bundle args = new Bundle();
+                args.putString("Autor", ev.getAutor());
+                args.putString("Titulo", ev.getTitulo());
+                args.putString("Descrição", ev.getDescricao());
+                args.putString("Data Inicial", ev.getData_Inicio());
+                args.putString("Data Final", ev.getData_Final());
+                itent.putExtra("events", args);
+                startActivity(itent);
+            }
+        });
+
         //preenche list
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -60,8 +80,7 @@ public class Fragment_Logado extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot d: dataSnapshot.getChildren()){
                     Eventos ev = d.getValue(Eventos.class);
-                    Eventos_Exibi e = new Eventos_Exibi(ev.getTitulo(),ev.getData_Inicio());
-                    eventos.add(e);
+                    eventos.add(ev);
                 }
 
                 adapter = new Evento_Adapter(getActivity(),eventos);
@@ -86,9 +105,9 @@ public class Fragment_Logado extends Fragment {
 
     }
 
-    private ArrayList<Eventos_Exibi> insere(){
-        ArrayList<Eventos_Exibi> eventos = new ArrayList<Eventos_Exibi>();
-        Eventos_Exibi e = new Eventos_Exibi(" "," ");
+    private ArrayList<Eventos> insere(){
+        ArrayList<Eventos> eventos = new ArrayList<Eventos>();
+        Eventos e = new Eventos(" "," "," "," "," "," ");
         eventos.add(e);
         return eventos;
     }
