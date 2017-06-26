@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
     AccessToken accessToken;
     private CallbackManager cbm;
     LoginButton btn_facebookIn;
+    EditText tbx_login;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
 */
 
 
-        final EditText tbx_login = (EditText) findViewById(R.id.tbx_user);
+        tbx_login = (EditText) findViewById(R.id.tbx_user);
         final EditText tbx_senha = (EditText) findViewById(R.id.tbx_pass);
         Button btn_in = (Button) findViewById(R.id.btn_login);
         Button btn_up = (Button) findViewById(R.id.btn_cad);
@@ -129,6 +130,9 @@ public class MainActivity extends AppCompatActivity {
     }
     public void abriTelaPrincipal(){
         Intent itTelaPrincipal = new Intent(MainActivity.this, RedEvent.class);
+        Bundle args = new Bundle();
+        args.putString("user", tbx_login.getText().toString());
+        itTelaPrincipal.putExtra("user",args);
         startActivity(itTelaPrincipal);
     }
 

@@ -54,6 +54,7 @@ public class Fragment_Cria extends Fragment {
         View view = inflater.inflate(R.layout.fragment__cria, container, false);
         titulo = (EditText) view.findViewById(R.id.edtTitulo);
         autor = (EditText) view.findViewById(R.id.edtNomeAutor);
+        autor.setText(getArguments().getString("user"));
         data_Ini = (EditText) view.findViewById(R.id.edtDataIni);
         data_Fim = (EditText) view.findViewById(R.id.edtDataFim);
         descrição = (EditText) view.findViewById(R.id.edtDesc);

@@ -32,12 +32,14 @@ import java.util.ArrayList;
 public class RedEvent extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private FloatingActionButton fab;
+    Bundle args;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        args = getIntent().getBundleExtra("user");
         telaInicio();
 
         fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -45,6 +47,7 @@ public class RedEvent extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 Fragment_Cria cria = new Fragment_Cria();
+                cria.setArguments(args);
                 getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.conteudo_fragment,cria).commit();
                 fab.setVisibility(view.INVISIBLE);
             }
@@ -111,7 +114,6 @@ public class RedEvent extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
         if (id == R.id.nav_inicio) {
             // Handle the camera action
             telaInicio();
