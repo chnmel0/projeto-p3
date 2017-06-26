@@ -66,7 +66,6 @@ public class Fragment_Cria extends Fragment {
                     eventos = new Eventos();
                     eventos.setTitulo(titulo.getText().toString());
                     eventos.setAutor(autor.getText().toString());
-                    eventos.setAutor(getUserName());
                     eventos.setData_Inicio(data_Ini.getText().toString());
                     eventos.setData_Final(data_Fim.getText().toString());
                     eventos.setDescricao(descrição.getText().toString());
