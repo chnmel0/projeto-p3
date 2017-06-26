@@ -42,7 +42,9 @@ import org.json.JSONObject;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.DateFormat;
 import java.util.Arrays;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -143,6 +145,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 abriTelaPrincipal();
+
                 Toast.makeText(MainActivity.this, "Login Efetuado com Sucesso",Toast.LENGTH_LONG).show();
                 Log.d("MainActivity","facebook sucss::"+loginResult);
                 accessToken = loginResult.getAccessToken();

@@ -24,7 +24,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -78,9 +81,24 @@ public class Fragment_Logado extends Fragment {
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                long date = System.currentTimeMillis();
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                String dateString = sdf.format(date);
+                int[] dataAr = convertArrayData(dateString);
+                //Toast.makeText(getContext(), dataAr[0]+"/"+dataAr[1]+"/"+dataAr[2],Toast.LENGTH_LONG).show();
                 for (DataSnapshot d: dataSnapshot.getChildren()){
+
                     Eventos ev = d.getValue(Eventos.class);
-                    eventos.add(ev);
+                    int[] dataArEv = convertArrayData(ev.getData_Final());
+                    if (dataAr[0]<=dataArEv[0] && dataAr[1]<=dataArEv[1] && dataAr[2]<=dataArEv[2]){
+                        eventos.add(ev);
+                    }
+                    else if(dataAr[1]<dataArEv[1] && dataAr[2]<=dataArEv[2]){
+                        eventos.add(ev);
+                    }
+                    else if(dataAr[2]<dataArEv[2]){
+                        eventos.add(ev);
+                    }
                 }
 
                 adapter = new Evento_Adapter(getActivity(),eventos);
@@ -104,7 +122,17 @@ public class Fragment_Logado extends Fragment {
 
 
     }
+    private  int[] convertArrayData(String data){
+        int[] retorno = {00,00,0000};
 
+        if (data != null && data.length() == 10){
+            String[] date = data.split("/");
+            retorno[0]= Integer.parseInt(date[0]);
+            retorno[1] = Integer.parseInt(date[1]);
+            retorno[2] = Integer.parseInt(date[2]);
+        }
+        return retorno;
+    }
     private ArrayList<Eventos> insere(){
         ArrayList<Eventos> eventos = new ArrayList<Eventos>();
         Eventos e = new Eventos(" "," "," "," "," "," ");
