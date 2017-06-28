@@ -1,6 +1,7 @@
 package com.example.p3.redevent.Entidades;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,7 +32,9 @@ public class Evento_Adapter extends ArrayAdapter<Eventos> {
         LayoutInflater inflater= (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rowView = inflater.inflate(R.layout.evento,parent,false);
-
+        if(position%2==1){
+            rowView.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        }
         TextView titleEvento = (TextView) rowView.findViewById(R.id.title);
         TextView dataEvento = (TextView) rowView.findViewById(R.id.data);
 
