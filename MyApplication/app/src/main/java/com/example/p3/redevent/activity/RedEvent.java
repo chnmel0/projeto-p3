@@ -2,6 +2,7 @@ package com.example.p3.redevent.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
@@ -27,12 +28,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 public class RedEvent extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private FloatingActionButton fab;
     Bundle args;
+    Bundle banc;
+    ArrayList<Eventos> eventos;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +44,25 @@ public class RedEvent extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         args = getIntent().getBundleExtra("user");
+        /*final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReferenceFromUrl("https://redevent-6cfe4.firebaseio.com/eventos");
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot d: dataSnapshot.getChildren()){
+
+                    Eventos ev = d.getValue(Eventos.class);
+                    eventos.add(ev);
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.d("Nome:",databaseError.toString());
+            }
+
+        });*/
+        //banc.putParcelableArrayList("ref2", (ArrayList<? extends Parcelable>) eventos);
+        //banc.putSerializable("ref", eventos);
         telaInicio();
 
         fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -106,6 +129,7 @@ public class RedEvent extends AppCompatActivity
     }
     public void telaInicio(){
         Fragment_Logado logado = new Fragment_Logado();
+        //logado.setArguments(banc);
         getSupportFragmentManager().beginTransaction().replace(R.id.conteudo_fragment,logado).commit();
     }
 
@@ -119,9 +143,12 @@ public class RedEvent extends AppCompatActivity
             telaInicio();
         } else if (id == R.id.nav_meus_eventos) {
             Fragment_My my = new Fragment_My();
+            my.setArguments(args);
             getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.conteudo_fragment,my).commit();
 
         } else if (id == R.id.nav_all_eventos) {
+            Fragment_All allf = new Fragment_All();
+            getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.conteudo_fragment,allf).commit();
 
         } else if (id == R.id.nav_sair) {
 

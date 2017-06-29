@@ -39,6 +39,8 @@ public class Fragment_Logado extends Fragment {
     ArrayAdapter adapter;
     View view;
     ArrayList<Eventos> eventos;
+    ArrayList<? extends Eventos> evv;
+    ArrayList<Eventos> ev;
     public Fragment_Logado() {
         // Required empty public constructor
     }
@@ -76,8 +78,13 @@ public class Fragment_Logado extends Fragment {
 
         //preenche list
 
+
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReferenceFromUrl("https://redevent-6cfe4.firebaseio.com/eventos");
+
+        //DatabaseReference ref = (DatabaseReference) getArguments().getSerializable("ref");
+        //ev = (ArrayList<Eventos>) getArguments().getSerializable("ref2");
+        //evv = (ArrayList<? extends Eventos>) getArguments().getSerializable("ref2");
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -111,12 +118,36 @@ public class Fragment_Logado extends Fragment {
             }
 
         });
+        /*
+        if (eventos != null){
+            long date = System.currentTimeMillis();
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            String dateString = sdf.format(date);
+            int[] dataAr = convertArrayData(dateString);
+            for (Eventos d: ev){
+                int[] dataArEv = convertArrayData(d.getData_Final());
+                if (dataAr[0]<=dataArEv[0] && dataAr[1]<=dataArEv[1] && dataAr[2]<=dataArEv[2]){
+                    eventos.add(d);
+                }
+                else if(dataAr[1]<dataArEv[1] && dataAr[2]<=dataArEv[2]){
+                    eventos.add(d);
+                }
+                else if(dataAr[2]<dataArEv[2]){
+                    eventos.add(d);
+                }
+            }
+            adapter = new Evento_Adapter(getActivity(), (ArrayList<Eventos>) eventos);
+            lista.setAdapter(adapter);
+
+        }*/
         if (eventos == null){
             eventos = insere();
+            adapter = new Evento_Adapter(getActivity(), (ArrayList<Eventos>) eventos);
+            lista.setAdapter(adapter);
+            adapter.clear();
         }
-        adapter = new Evento_Adapter(getActivity(),eventos);
-        lista.setAdapter(adapter);
-        adapter.clear();
+
+
         //eventos = insere();
         return view;
 

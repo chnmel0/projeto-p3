@@ -1,6 +1,7 @@
 package com.example.p3.redevent.activity;
 
-
+import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -19,19 +20,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class Fragment_My extends Fragment {
-
+public class Fragment_All extends Fragment {
     ListView lista;
     ArrayAdapter adapter;
     View view;
     ArrayList<Eventos> eventos;
-    public Fragment_My() {
+    public Fragment_All() {
         // Required empty public constructor
     }
 
@@ -41,7 +37,6 @@ public class Fragment_My extends Fragment {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_fragment__logado, container, false);
         lista = (ListView) view.findViewById(R.id.list);
-        final String email = getArguments().getString("user");
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = FirebaseDatabase.getInstance().getReferenceFromUrl("https://redevent-6cfe4.firebaseio.com/eventos");
         ref.addValueEventListener(new ValueEventListener() {
@@ -51,9 +46,7 @@ public class Fragment_My extends Fragment {
                 for (DataSnapshot d: dataSnapshot.getChildren()){
 
                     Eventos ev = d.getValue(Eventos.class);
-                    if (ev.getAutor().equals(email)){
-                        eventos.add(ev);
-                    }
+                    eventos.add(ev);
                 }
 
                 adapter = new Evento_Adapter(getActivity(),eventos);
