@@ -4,6 +4,7 @@ import com.example.p3.redevent.DAO.ConfiguracaoFirebase;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Exclude;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -19,6 +20,7 @@ public class Eventos {
     private String data_Inicio;
     private String data_Final;
     private String autor;
+    //private ArrayList<String> participantes;
 
     public Eventos(){
     }
@@ -45,6 +47,7 @@ public class Eventos {
         hashMapEventos.put("data_Inicio", getData_Inicio());
         hashMapEventos.put("data_Final", getData_Final());
         hashMapEventos.put("autor", getAutor());
+        //hashMapEventos.put("participantes", getParticipantes());
 
         return hashMapEventos;
     }
@@ -97,6 +100,14 @@ public class Eventos {
     public void setAutor(String autor) {
         this.autor = autor;
     }
+
+   /* public ArrayList<String> getParticipantes() {
+        return participantes;
+    }
+
+    public void setParticipantes(ArrayList<String> participantes) {
+        this.participantes = participantes;
+    }*/
 
 
 }

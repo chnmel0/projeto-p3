@@ -20,12 +20,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Título do Evento"/>
+
             <EditText
                 android:id="@+id/edtNomeAutor"
-                android:inputType="text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Nome do Autor"/>
+                android:hint="Nome do Autor"
+                android:inputType="text" />
 
             <EditText
                 android:id="@+id/edtDataIni"

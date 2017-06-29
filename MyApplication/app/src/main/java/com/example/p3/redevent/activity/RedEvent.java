@@ -129,7 +129,7 @@ public class RedEvent extends AppCompatActivity
     }
     public void telaInicio(){
         Fragment_Logado logado = new Fragment_Logado();
-        //logado.setArguments(banc);
+        logado.setArguments(args);
         getSupportFragmentManager().beginTransaction().replace(R.id.conteudo_fragment,logado).commit();
     }
 

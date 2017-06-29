@@ -55,6 +55,7 @@ public class Fragment_Cria extends Fragment {
         titulo = (EditText) view.findViewById(R.id.edtTitulo);
         autor = (EditText) view.findViewById(R.id.edtNomeAutor);
         autor.setText(getArguments().getString("user"));
+        autor.setActivated(false);
         data_Ini = (EditText) view.findViewById(R.id.edtDataIni);
         data_Fim = (EditText) view.findViewById(R.id.edtDataFim);
         descrição = (EditText) view.findViewById(R.id.edtDesc);
@@ -69,6 +70,7 @@ public class Fragment_Cria extends Fragment {
                     eventos.setData_Inicio(data_Ini.getText().toString());
                     eventos.setData_Final(data_Fim.getText().toString());
                     eventos.setDescricao(descrição.getText().toString());
+                    //eventos.setDescricao(null);
                     cadastrarEvento();
                 }
             }
@@ -76,25 +78,7 @@ public class Fragment_Cria extends Fragment {
 
         return view;
     }
-    public String getUserName(){
-        final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference ref = database.getReference("project/redevent-6cfe4/database/data/usuario");
-        final String[] userr = new String[1];
-        ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Usuarios user = dataSnapshot.getValue(Usuarios.class);
-                Toast.makeText(getContext(), dataSnapshot.toString(),Toast.LENGTH_LONG).show();
-                //userr[0] = user.getNome();
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                System.out.println("The read failed: " + databaseError.getCode());
-            }
-        });
-        return  "aaaaaaaaaaaaa";
 
-    }
     public String getUser(){
         autenticFire = ConfiguracaoFirebase.getFirebaseAutentic();
         user = autenticFire.getCurrentUser();

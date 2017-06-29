@@ -66,11 +66,14 @@ public class Fragment_Logado extends Fragment {
                 Eventos ev = arrayAdapter.getItem(position);
                 Intent itent = new Intent(getContext(), EventOpen.class);
                 Bundle args = new Bundle();
+                args.putString("Id", ev.getId());
                 args.putString("Autor", ev.getAutor());
                 args.putString("Titulo", ev.getTitulo());
                 args.putString("Descrição", ev.getDescricao());
                 args.putString("Data Inicial", ev.getData_Inicio());
                 args.putString("Data Final", ev.getData_Final());
+                //args.putStringArrayList("Participantes",ev.getParticipantes());
+                args.putString("User",getArguments().getString("User"));
                 itent.putExtra("events", args);
                 startActivity(itent);
             }
