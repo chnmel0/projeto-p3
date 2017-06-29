@@ -70,7 +70,7 @@ public class Fragment_Cria extends Fragment {
                     eventos.setData_Inicio(data_Ini.getText().toString());
                     eventos.setData_Final(data_Fim.getText().toString());
                     eventos.setDescricao(descrição.getText().toString());
-                    //eventos.setDescricao(null);
+                    eventos.setParticipantes(getArguments().getString("user"));
                     cadastrarEvento();
                 }
             }

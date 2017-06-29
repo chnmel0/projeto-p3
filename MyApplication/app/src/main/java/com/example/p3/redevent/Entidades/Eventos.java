@@ -20,11 +20,11 @@ public class Eventos {
     private String data_Inicio;
     private String data_Final;
     private String autor;
-    //private ArrayList<String> participantes;
+    private String participantes;
 
     public Eventos(){
     }
-    public Eventos(String id, String titulo, String descricao, String data_Inicio, String data_Final, String autor) {
+    public Eventos(String id, String titulo, String descricao, String data_Inicio, String data_Final, String autor, String participantes) {
         /*this.id = id;
         this.titulo = titulo;
         this.descricao = descricao;
@@ -47,7 +47,7 @@ public class Eventos {
         hashMapEventos.put("data_Inicio", getData_Inicio());
         hashMapEventos.put("data_Final", getData_Final());
         hashMapEventos.put("autor", getAutor());
-        //hashMapEventos.put("participantes", getParticipantes());
+        hashMapEventos.put("participantes", getParticipantes());
 
         return hashMapEventos;
     }
@@ -101,13 +101,13 @@ public class Eventos {
         this.autor = autor;
     }
 
-   /* public ArrayList<String> getParticipantes() {
+   public String getParticipantes() {
         return participantes;
     }
 
-    public void setParticipantes(ArrayList<String> participantes) {
+    public void setParticipantes(String participantes) {
         this.participantes = participantes;
-    }*/
+    }
 
 
 }

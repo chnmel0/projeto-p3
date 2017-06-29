@@ -81,7 +81,7 @@ public class Fragment_My extends Fragment {
     }
     private ArrayList<Eventos> insere(){
         ArrayList<Eventos> eventos = new ArrayList<Eventos>();
-        Eventos e = new Eventos(" "," "," "," "," "," ");
+        Eventos e = new Eventos(" "," "," "," "," "," "," ");
         eventos.add(e);
         return eventos;
     }

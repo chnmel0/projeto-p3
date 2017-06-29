@@ -72,7 +72,7 @@ public class Fragment_Logado extends Fragment {
                 args.putString("Descrição", ev.getDescricao());
                 args.putString("Data Inicial", ev.getData_Inicio());
                 args.putString("Data Final", ev.getData_Final());
-                //args.putStringArrayList("Participantes",ev.getParticipantes());
+                args.putString("Participantes",ev.getParticipantes());
                 args.putString("User",getArguments().getString("User"));
                 itent.putExtra("events", args);
                 startActivity(itent);
@@ -169,7 +169,7 @@ public class Fragment_Logado extends Fragment {
     }
     private ArrayList<Eventos> insere(){
         ArrayList<Eventos> eventos = new ArrayList<Eventos>();
-        Eventos e = new Eventos(" "," "," "," "," "," ");
+        Eventos e = new Eventos(" "," "," "," "," "," "," ");
         eventos.add(e);
         return eventos;
     }
