@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import com.example.p3.redevent.Entidades.Evento_Adapter;
 import com.example.p3.redevent.Entidades.Eventos;
@@ -27,6 +28,7 @@ public class Fragment_All extends Fragment {
     ArrayAdapter adapter;
     View view;
     ArrayList<Eventos> eventos;
+    ProgressBar carga;
     public Fragment_All() {
         // Required empty public constructor
     }
@@ -35,8 +37,10 @@ public class Fragment_All extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_fragment__logado, container, false);
+        view = inflater.inflate(R.layout.fragment_fragment__all, container, false);
         lista = (ListView) view.findViewById(R.id.list);
+        carga = (ProgressBar) view.findViewById(R.id.carregar);
+
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = FirebaseDatabase.getInstance().getReferenceFromUrl("https://redevent-6cfe4.firebaseio.com/eventos");
         ref.addValueEventListener(new ValueEventListener() {
@@ -51,6 +55,8 @@ public class Fragment_All extends Fragment {
 
                 adapter = new Evento_Adapter(getActivity(),eventos);
                 lista.setAdapter(adapter);
+                carga.setVisibility(View.INVISIBLE);
+                lista.setVisibility(View.VISIBLE);
 
             }
             @Override
@@ -66,6 +72,8 @@ public class Fragment_All extends Fragment {
             adapter = new Evento_Adapter(getActivity(), (ArrayList<Eventos>) eventos);
             lista.setAdapter(adapter);
             adapter.clear();
+            carga.setVisibility(View.VISIBLE);
+            lista.setVisibility(View.INVISIBLE);
         }
         return view;
 
