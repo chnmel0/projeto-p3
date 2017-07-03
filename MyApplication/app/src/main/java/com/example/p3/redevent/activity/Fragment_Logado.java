@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.p3.redevent.Entidades.Evento_Adapter;
@@ -41,6 +42,7 @@ public class Fragment_Logado extends Fragment {
     ArrayList<Eventos> eventos;
     ArrayList<? extends Eventos> evv;
     ArrayList<Eventos> ev;
+    ProgressBar carga;
     public Fragment_Logado() {
         // Required empty public constructor
     }
@@ -57,6 +59,7 @@ public class Fragment_Logado extends Fragment {
 
         view = inflater.inflate(R.layout.fragment_fragment__logado, container, false);
         lista = (ListView) view.findViewById(R.id.list);
+        carga = (ProgressBar) view.findViewById(R.id.carregar);
 
         lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -113,6 +116,8 @@ public class Fragment_Logado extends Fragment {
 
                 adapter = new Evento_Adapter(getActivity(),eventos);
                 lista.setAdapter(adapter);
+                carga.setVisibility(View.INVISIBLE);
+                lista.setVisibility(View.VISIBLE);
 
             }
             @Override
@@ -148,12 +153,14 @@ public class Fragment_Logado extends Fragment {
             adapter = new Evento_Adapter(getActivity(), (ArrayList<Eventos>) eventos);
             lista.setAdapter(adapter);
             adapter.clear();
+            carga.setVisibility(View.VISIBLE);
+            lista.setVisibility(View.INVISIBLE);
         }
+
 
 
         //eventos = insere();
         return view;
-
 
     }
     private  int[] convertArrayData(String data){
