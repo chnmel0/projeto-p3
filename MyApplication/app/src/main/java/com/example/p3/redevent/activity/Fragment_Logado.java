@@ -73,7 +73,7 @@ public class Fragment_Logado extends Fragment {
                 args.putString("Data Inicial", ev.getData_Inicio());
                 args.putString("Data Final", ev.getData_Final());
                 args.putString("Participantes",ev.getParticipantes());
-                args.putString("User",getArguments().getString("User"));
+                args.putString("User",getArguments().getString("user"));
                 itent.putExtra("events", args);
                 startActivity(itent);
             }

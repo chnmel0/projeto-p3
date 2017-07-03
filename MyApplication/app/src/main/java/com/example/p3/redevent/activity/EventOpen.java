@@ -2,6 +2,7 @@ package com.example.p3.redevent.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,6 +14,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class EventOpen extends AppCompatActivity {
     TextView title;
@@ -36,14 +38,20 @@ public class EventOpen extends AppCompatActivity {
         parti = (TextView) findViewById(R.id.txt_part);
         btn_pert = (Button) findViewById(R.id.btn_part);
         args = getIntent().getBundleExtra("events");
-        final DatabaseReference evetnosRef = FirebaseDatabase.getInstance().getReferenceFromUrl("https://redevent-6cfe4.firebaseio.com/eventos"+args.getString("Id")+"/");
+        final DatabaseReference evetnosRef = FirebaseDatabase.getInstance().getReferenceFromUrl("https://redevent-6cfe4.firebaseio.com/eventos/"+args.getString("Id")+"/participantes");
+        String[] tuto = args.getString("Participantes").split(";");
+        Log.d("AQUEIO",tuto[0]);
+        if (Arrays.asList(tuto).contains(args.getString("User"))){
+            btn_pert.setVisibility(View.INVISIBLE);
+        }
+        int qtd= tuto.length;
         if (args != null){
             title.setText(args.getString("Titulo"));
             autor.setText(args.getString("Autor"));
             dt_ini.setText(args.getString("Data Inicial"));
             dt_fim.setText(args.getString("Data Final"));
             descr.setText(args.getString("Descrição"));
-            parti.setText(args.getString("Participantes").split(";").length);
+            parti.setText("Estarão presentes: "+qtd);
 
         }
         btn_pert.setOnClickListener(new View.OnClickListener() {
@@ -54,7 +62,7 @@ public class EventOpen extends AppCompatActivity {
 
                 DatabaseReference novoRegistro = evetnosRef.push();
                 if(!args.getString("Autor").equals(args.getString("User"))){
-                    evetnosRef.setValue(participantes+";"+args.getString("User"));
+                    evetnosRef.setValue(participantes+args.getString("User")+";");
                     //novoRegistro.child("participantes").setValue(participantes.add(args.getString("User")));
                 }
                 else{
