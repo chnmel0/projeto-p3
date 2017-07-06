@@ -41,6 +41,8 @@ public class Fragment_My extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        if (adapter != null){
+            adapter.clear();}
         view = inflater.inflate(R.layout.fragment_my, container, false);
         lista = (ListView) view.findViewById(R.id.list);
         carga = (ProgressBar) view.findViewById(R.id.carregar);

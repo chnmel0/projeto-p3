@@ -56,7 +56,8 @@ public class Fragment_Logado extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
+        if (adapter != null){
+            adapter.clear();}
         view = inflater.inflate(R.layout.fragment_fragment__logado, container, false);
         lista = (ListView) view.findViewById(R.id.list);
         carga = (ProgressBar) view.findViewById(R.id.carregar);
