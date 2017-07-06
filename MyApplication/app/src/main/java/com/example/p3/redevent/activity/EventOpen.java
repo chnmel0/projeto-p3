@@ -63,6 +63,7 @@ public class EventOpen extends AppCompatActivity {
                 DatabaseReference novoRegistro = evetnosRef.push();
                 if(!args.getString("Autor").equals(args.getString("User"))){
                     evetnosRef.setValue(participantes+args.getString("User")+";");
+                    Toast.makeText(EventOpen.this, "Você participara do evento",Toast.LENGTH_LONG).show();
                     //novoRegistro.child("participantes").setValue(participantes.add(args.getString("User")));
                 }
                 else{
