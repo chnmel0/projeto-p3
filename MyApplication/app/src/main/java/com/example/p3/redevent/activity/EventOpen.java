@@ -47,9 +47,9 @@ public class EventOpen extends AppCompatActivity {
         int qtd= tuto.length;
         if (args != null){
             title.setText(args.getString("Titulo"));
-            autor.setText(args.getString("Autor"));
-            dt_ini.setText(args.getString("Data Inicial"));
-            dt_fim.setText(args.getString("Data Final"));
+            autor.setText("Criado por: "+args.getString("Autor"));
+            dt_ini.setText("Inicio em: "+args.getString("Data Inicial"));
+            dt_fim.setText("Fim: "+args.getString("Data Final"));
             descr.setText(args.getString("Descrição"));
             parti.setText("Estarão presentes: "+qtd);
 
