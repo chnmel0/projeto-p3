@@ -1,12 +1,14 @@
 package com.example.p3.redevent.activity;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -46,6 +48,26 @@ public class Fragment_My extends Fragment {
         view = inflater.inflate(R.layout.fragment_my, container, false);
         lista = (ListView) view.findViewById(R.id.list);
         carga = (ProgressBar) view.findViewById(R.id.carregar);
+        lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ListView listView = (ListView) parent;
+                ArrayAdapter<Eventos> arrayAdapter = (ArrayAdapter<Eventos>)listView.getAdapter();
+                Eventos ev = arrayAdapter.getItem(position);
+                Intent itent = new Intent(getContext(), EventOpen.class);
+                Bundle args = new Bundle();
+                args.putString("Id", ev.getId());
+                args.putString("Autor", ev.getAutor());
+                args.putString("Titulo", ev.getTitulo());
+                args.putString("Descrição", ev.getDescricao());
+                args.putString("Data Inicial", ev.getData_Inicio());
+                args.putString("Data Final", ev.getData_Final());
+                args.putString("Participantes",ev.getParticipantes());
+                args.putString("User",getArguments().getString("user"));
+                itent.putExtra("events", args);
+                startActivity(itent);
+            }
+        });
 
         final String email = getArguments().getString("user");
         final FirebaseDatabase database = FirebaseDatabase.getInstance();

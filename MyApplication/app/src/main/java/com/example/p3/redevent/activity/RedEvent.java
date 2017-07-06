@@ -148,6 +148,7 @@ public class RedEvent extends AppCompatActivity
 
         } else if (id == R.id.nav_all_eventos) {
             Fragment_All allf = new Fragment_All();
+            allf.setArguments(args);
             getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.conteudo_fragment,allf).commit();
 
         } else if (id == R.id.nav_sair) {

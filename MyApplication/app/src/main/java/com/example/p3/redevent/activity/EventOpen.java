@@ -64,6 +64,7 @@ public class EventOpen extends AppCompatActivity {
                 if(!args.getString("Autor").equals(args.getString("User"))){
                     evetnosRef.setValue(participantes+args.getString("User")+";");
                     Toast.makeText(EventOpen.this, "Você participara do evento",Toast.LENGTH_LONG).show();
+                    btn_pert.setVisibility(View.INVISIBLE);
                     //novoRegistro.child("participantes").setValue(participantes.add(args.getString("User")));
                 }
                 else{
