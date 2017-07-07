@@ -68,7 +68,7 @@ public class Fragment_Logado extends Fragment {
                 ListView listView = (ListView) parent;
                 ArrayAdapter<Eventos> arrayAdapter = (ArrayAdapter<Eventos>)listView.getAdapter();
                 Eventos ev = arrayAdapter.getItem(position);
-                Intent itent = new Intent(getContext(), EventOpen.class);
+                Intent itent = new Intent(getActivity(), EventOpen.class);
                 Bundle args = new Bundle();
                 args.putString("Id", ev.getId());
                 args.putString("Autor", ev.getAutor());

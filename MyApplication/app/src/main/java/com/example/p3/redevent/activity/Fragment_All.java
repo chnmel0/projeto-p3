@@ -77,7 +77,7 @@ public class Fragment_All extends Fragment {
                     eventos.add(ev);
                 }
 
-                adapter = new Evento_Adapter(getActivity(),eventos);
+                adapter = new Evento_Adapter(getContext(),eventos);
                 lista.setAdapter(adapter);
                 carga.setVisibility(View.INVISIBLE);
                 lista.setVisibility(View.VISIBLE);
@@ -93,7 +93,7 @@ public class Fragment_All extends Fragment {
 
         if (eventos == null){
             eventos = insere();
-            adapter = new Evento_Adapter(getActivity(), (ArrayList<Eventos>) eventos);
+            adapter = new Evento_Adapter(getContext(), (ArrayList<Eventos>) eventos);
             lista.setAdapter(adapter);
             adapter.clear();
             carga.setVisibility(View.VISIBLE);
