@@ -2,6 +2,7 @@ package com.example.p3.redevent.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -29,6 +30,7 @@ public class EventOpen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //setUpToolbar();
         setContentView(R.layout.activity_event_open);
         title = (TextView) findViewById(R.id.titulo);
         autor = (TextView) findViewById(R.id.autor);
@@ -62,9 +64,16 @@ public class EventOpen extends AppCompatActivity {
 
                 DatabaseReference novoRegistro = evetnosRef.push();
                 if(!args.getString("Autor").equals(args.getString("User"))){
-                    evetnosRef.setValue(participantes+args.getString("User")+";");
-                    Toast.makeText(EventOpen.this, "Você participara do evento",Toast.LENGTH_LONG).show();
-                    btn_pert.setVisibility(View.INVISIBLE);
+                    try{
+                        evetnosRef.setValue(participantes+args.getString("User")+";");
+                        Toast.makeText(EventOpen.this, "Você participara do evento",Toast.LENGTH_LONG).show();
+                        btn_pert.setVisibility(View.INVISIBLE);
+                    }catch (Exception e){
+                        Toast.makeText(EventOpen.this, e.toString(),Toast.LENGTH_LONG).show();
+                        onBackPressed();
+                        finish();
+                    }
+
                     //novoRegistro.child("participantes").setValue(participantes.add(args.getString("User")));
                 }
                 else{
@@ -72,4 +81,12 @@ public class EventOpen extends AppCompatActivity {
             }
         });
     }
+    protected void setUpToolbar() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        if(toolbar != null){
+            setSupportActionBar(toolbar);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+    }
+
 }

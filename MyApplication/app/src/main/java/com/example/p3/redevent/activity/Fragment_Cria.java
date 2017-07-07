@@ -86,14 +86,22 @@ public class Fragment_Cria extends Fragment {
     }
 
     private void cadastrarEvento() {
-        String identificadorEvento = Base64Custom.codificarBase64(eventos.getTitulo());
-        eventos.setId(identificadorEvento);
-        eventos.salvar();
-        Toast.makeText(getContext(), "Evento Criado com Sucesso", Toast.LENGTH_LONG).show();
-        abrirTelaLogado();
+        try{
+            String identificadorEvento = Base64Custom.codificarBase64(eventos.getTitulo());
+            eventos.setId(identificadorEvento);
+            eventos.salvar();
+            Toast.makeText(getContext(), "Evento Criado com Sucesso", Toast.LENGTH_LONG).show();
+            abrirTelaLogado();
+        }catch (Exception e){
+            Toast.makeText(getContext(), e.toString(),Toast.LENGTH_LONG).show();
+            getFragmentManager().popBackStack();
+        }
     }
     public void abrirTelaLogado() {
         Fragment_Logado logado = new Fragment_Logado();
+        Bundle bdl=new Bundle();
+        bdl.getString("user",getArguments().getString("user"));
+        logado.setArguments(bdl);
         getFragmentManager().beginTransaction().replace(R.id.conteudo_fragment,logado).commit();
     }
 

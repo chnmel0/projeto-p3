@@ -57,7 +57,7 @@ public class Fragment_Logado extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         if (adapter != null){
-            adapter.clear();}
+            adapter = null; lista = null; eventos = null;}
         view = inflater.inflate(R.layout.fragment_fragment__logado, container, false);
         lista = (ListView) view.findViewById(R.id.list);
         carga = (ProgressBar) view.findViewById(R.id.carregar);
@@ -79,12 +79,15 @@ public class Fragment_Logado extends Fragment {
                 args.putString("Participantes",ev.getParticipantes());
                 args.putString("User",getArguments().getString("user"));
                 itent.putExtra("events", args);
-                startActivity(itent);
+                try{
+                    startActivity(itent);
+                }catch(Exception e){
+                    Toast.makeText(getContext(), e.toString(),Toast.LENGTH_LONG).show();
+                }
             }
         });
 
         //preenche list
-
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReferenceFromUrl("https://redevent-6cfe4.firebaseio.com/eventos");
@@ -115,7 +118,7 @@ public class Fragment_Logado extends Fragment {
                     }
                 }
 
-                adapter = new Evento_Adapter(getActivity(),eventos);
+                adapter = new Evento_Adapter(getContext(),eventos);
                 lista.setAdapter(adapter);
                 carga.setVisibility(View.INVISIBLE);
                 lista.setVisibility(View.VISIBLE);
@@ -151,7 +154,7 @@ public class Fragment_Logado extends Fragment {
         }*/
         if (eventos == null){
             eventos = insere();
-            adapter = new Evento_Adapter(getActivity(), (ArrayList<Eventos>) eventos);
+            adapter = new Evento_Adapter(getContext(), (ArrayList<Eventos>) eventos);
             lista.setAdapter(adapter);
             adapter.clear();
             carga.setVisibility(View.VISIBLE);
@@ -164,6 +167,9 @@ public class Fragment_Logado extends Fragment {
         return view;
 
     }
+
+
+
     private  int[] convertArrayData(String data){
         int[] retorno = {00,00,0000};
 
