@@ -152,7 +152,9 @@ public class RedEvent extends AppCompatActivity
             getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.conteudo_fragment,allf).commit();
 
         } else if (id == R.id.nav_sair) {
-
+            Intent intent = new Intent(RedEvent.this,MainActivity.class);
+            startActivity(intent);
+            finish();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

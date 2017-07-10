@@ -7,38 +7,38 @@
     <!-- TODO: Update blank fragment layout -->
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:orientation="vertical"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
             <EditText
                 android:id="@+id/edtTitulo"
                 android:inputType="textCapCharacters"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:hint="Título do Evento"/>
 
             <EditText
                 android:id="@+id/edtNomeAutor"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:hint="Nome do Autor"
                 android:inputType="text" />
 
             <EditText
                 android:id="@+id/edtDataIni"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:hint="Data Inicial"
                 android:inputType="date" />
             <EditText
                 android:id="@+id/edtDataFim"
                 android:inputType="date"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:hint="Data Final"/>
 
             <EditText
@@ -52,7 +52,7 @@
                 android:id="@+id/btnCriar"
                 android:text="Criar Evento"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="match_parent"/>
 
         </LinearLayout>
     </ScrollView>
